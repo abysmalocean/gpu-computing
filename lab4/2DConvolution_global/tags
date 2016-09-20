@@ -1,0 +1,34 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+AllocateMatrix	/export/home/wangd7/gpu-comp/lab4/2DConvolution_global/2Dconvolution.c	/^Matrix AllocateMatrix(int height, int width, int init)$/;"	f	signature:(int height, int width, int init)
+AllocateMatrix	/export/home/wangd7/gpu-comp/lab4/2DConvolution_global/2Dconvolution.c	/^Matrix AllocateMatrix(int height, int width, int init);$/;"	p	file:	signature:(int height, int width, int init)
+ConvolutionOnDevice	/export/home/wangd7/gpu-comp/lab4/2DConvolution_global/2Dconvolution.c	/^void ConvolutionOnDevice(const Matrix A, const Matrix B, Matrix C)$/;"	f	signature:(const Matrix A, const Matrix B, Matrix C)
+ConvolutionOnDevice	/export/home/wangd7/gpu-comp/lab4/2DConvolution_global/2Dconvolution.c	/^void ConvolutionOnDevice(const Matrix A, const Matrix B, Matrix C);$/;"	p	file:	signature:(const Matrix A, const Matrix B, Matrix C)
+FreeMatrix	/export/home/wangd7/gpu-comp/lab4/2DConvolution_global/2Dconvolution.c	/^void FreeMatrix(Matrix* M)$/;"	f	signature:(Matrix* M)
+FreeMatrix	/export/home/wangd7/gpu-comp/lab4/2DConvolution_global/2Dconvolution.c	/^void FreeMatrix(Matrix* M);$/;"	p	file:	signature:(Matrix* M)
+PLATFORM_TO_USE	/export/home/wangd7/gpu-comp/lab4/2DConvolution_global/2Dconvolution.c	11;"	d	file:
+PaddingMatrixB	/export/home/wangd7/gpu-comp/lab4/2DConvolution_global/2Dconvolution.c	/^void PaddingMatrixB(float* paddingb, const float* hb, int height, int width)$/;"	f	signature:(float* paddingb, const float* hb, int height, int width)
+PaddingMatrixB	/export/home/wangd7/gpu-comp/lab4/2DConvolution_global/2Dconvolution.c	/^void PaddingMatrixB(float* paddingb,const float* hb, int height, int width);$/;"	p	file:	signature:(float* paddingb,const float* hb, int height, int width)
+ReadFile	/export/home/wangd7/gpu-comp/lab4/2DConvolution_global/2Dconvolution.c	/^int ReadFile(Matrix* M, char* file_name)$/;"	f	signature:(Matrix* M, char* file_name)
+ReadFile	/export/home/wangd7/gpu-comp/lab4/2DConvolution_global/2Dconvolution.c	/^int ReadFile(Matrix* M, char* file_name);$/;"	p	file:	signature:(Matrix* M, char* file_name)
+ReadParam	/export/home/wangd7/gpu-comp/lab4/2DConvolution_global/2Dconvolution.c	/^int ReadParam(const char* filename, int* data)$/;"	f	signature:(const char* filename, int* data)
+WriteFile	/export/home/wangd7/gpu-comp/lab4/2DConvolution_global/2Dconvolution.c	/^void WriteFile(Matrix M, char* file_name)$/;"	f	signature:(Matrix M, char* file_name)
+WriteFile	/export/home/wangd7/gpu-comp/lab4/2DConvolution_global/2Dconvolution.c	/^void WriteFile(Matrix M, char* file_name);$/;"	p	file:	signature:(Matrix M, char* file_name)
+WriteToFile	/export/home/wangd7/gpu-comp/lab4/2DConvolution_global/2Dconvolution.c	/^void WriteToFile(const char* filename,float* data,int height, int width)$/;"	f	signature:(const char* filename,float* data,int height, int width)
+WriteToFile	/export/home/wangd7/gpu-comp/lab4/2DConvolution_global/2Dconvolution.c	/^void WriteToFile(const char* filename,float* data,int height, int width);$/;"	p	file:	signature:(const char* filename,float* data,int height, int width)
+chk	/export/home/wangd7/gpu-comp/lab4/2DConvolution_global/2Dconvolution.c	/^void chk(cl_int status, const char* cmd)$/;"	f	signature:(cl_int status, const char* cmd)
+chk	/export/home/wangd7/gpu-comp/lab4/2DConvolution_global/2Dconvolution.c	/^void chk(cl_int status, const char* cmd);$/;"	p	file:	signature:(cl_int status, const char* cmd)
+compareMatrix	/export/home/wangd7/gpu-comp/lab4/2DConvolution_global/2Dconvolution.c	/^int compareMatrix(float* ref, float* maxtrix, int size, float tolerance)$/;"	f	signature:(float* ref, float* maxtrix, int size, float tolerance)
+compareMatrix	/export/home/wangd7/gpu-comp/lab4/2DConvolution_global/2Dconvolution.c	/^int compareMatrix(float* ref, float* maxtrix, int size, float tolerance);$/;"	p	file:	signature:(float* ref, float* maxtrix, int size, float tolerance)
+computeGold	/export/home/wangd7/gpu-comp/lab4/2DConvolution_global/2Dconvolution.c	/^void computeGold(float* C, const float* A, const float* B, unsigned int hB, unsigned int wB)$/;"	f	signature:(float* C, const float* A, const float* B, unsigned int hB, unsigned int wB)
+computeGold	/export/home/wangd7/gpu-comp/lab4/2DConvolution_global/2Dconvolution.c	/^void computeGold(float*, const float*, const float*, unsigned int, unsigned int);$/;"	p	file:	signature:(float*, const float*, const float*, unsigned int, unsigned int)
+main	/export/home/wangd7/gpu-comp/lab4/2DConvolution_global/2Dconvolution.c	/^int main(int argc, char** argv) $/;"	f	signature:(int argc, char** argv)
+readParam	/export/home/wangd7/gpu-comp/lab4/2DConvolution_global/2Dconvolution.c	/^int readParam(const char* filename, int* data);$/;"	p	file:	signature:(const char* filename, int* data)
+readSource	/export/home/wangd7/gpu-comp/lab4/2DConvolution_global/2Dconvolution.c	/^char* readSource(char* kernelPath)$/;"	f	signature:(char* kernelPath)
+readSource	/export/home/wangd7/gpu-comp/lab4/2DConvolution_global/2Dconvolution.c	/^char* readSource(char* kernelPath);$/;"	p	file:	signature:(char* kernelPath)
+roundup	/export/home/wangd7/gpu-comp/lab4/2DConvolution_global/2Dconvolution.c	/^unsigned int roundup(unsigned int value, unsigned int multiple)$/;"	f	signature:(unsigned int value, unsigned int multiple)
+roundup	/export/home/wangd7/gpu-comp/lab4/2DConvolution_global/2Dconvolution.c	/^unsigned int roundup(unsigned int value, unsigned int multiple);$/;"	p	file:	signature:(unsigned int value, unsigned int multiple)

@@ -1,0 +1,27 @@
+__kernel
+void convolution(__global float* A,
+		 __global float* B,
+		 __global float* C,
+		  __local float* localmem, 
+		            int  width, 
+		            int  height)
+{
+	int col = get_group_id(0)*get_local_size(0)+get_local_id(0);
+	int row = get_group_id(1)*get_local_size(1)+get_local_id(1);  
+	float sum = 0.0f;	
+	localmem[(row+2)*(width+4)+col+2]=B[row*width+col];
+	barrier(CLK_LOCAL_MEM_FENCE);
+	int m,n;
+	for(m=0;
+	m<KERNEL_SIZE;
+	m++)
+	{
+		for(n=0; 
+		n<KERNEL_SIZE; 
+		n++)
+			sum += A[m*5+n]*localmem[(row+2+m)*(width+4)+col+2+n];
+	}
+	barrier(CLK_LOCAL_MEM_FENCE);
+	C[row*width+col]=111.11;
+	return;
+}

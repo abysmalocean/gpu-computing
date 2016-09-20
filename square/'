@@ -1,0 +1,63 @@
+#include <stdio.h>
+#include <cutil.h>
+#include <cuda.h>
+#include "square_kernel.cu"
+
+//function declaration
+int checkDeviceProp( cudaDeviceProp p );
+void square_with_pinned_memory( int n );
+
+int main( int argc, char* argv[] )
+{
+	cudaDeviceProp dev;
+	cudaGetDeviceProperties(&dev,0);
+	int success = checkDeviceProp(dev);
+	if(success != 0 )
+		square_with_pinned_memory(32);
+	return 0;
+}
+
+int checkDeviceProp( cudaDeviceProp p )
+{
+	int support = p.canMapHostMemory;
+	if( support == 0 )
+		printf("%s does not support mapping host memory. \n", p.name);
+	else
+		printf("%s supports mapping host memory. \n", p.name);
+	return support;
+}
+
+void square_with_pinned_memory( int n )
+{
+	float *xhost;
+	size_t sz=n*sizeof(float);
+//	int error = cudaHostAlloc((void**)&xhost, sz, cudaHostAllocMapped );
+	cudaError_t error;
+
+	printf("The error code of cudaHostAlloc is:%d\n", error);
+	for( int i=0; i<n; i++ )
+		xhost[i] = (float)(i+1);
+
+	float* d_data = NULL;
+	error = cudaMalloc((void**)&d_data,sz );
+	error = cudaMemcpy(d_data, h_data, sz, cudaMemcpyHostToDevice);
+	if( error != 0 )
+	{
+		printf("There is error!\n");
+		exit()
+	}
+
+	
+	//printf("Squaring %d numbers!\n",n);
+	//for( int i=0; i<n; i++ )
+	//	printf("%d\n",(int)xhost[i]);
+	//float *xdevice;
+	//int fail = cudaHostGetDevicePointer((void**)&xdevice, (void*)xhost,0);
+	//printf("The fail code of cudaHostGetDevicePointer is:%d\n", fail);
+	square<<<1,n>>>(xdevice);
+	cudaDeviceSynchronize();
+	printf("After squaring %d numbers!\n", n);
+	for( int i=0; i<n; i++ )
+		printf("%d\n", (int)xhost[i]);
+	cudaFreeHost(xhost);
+}

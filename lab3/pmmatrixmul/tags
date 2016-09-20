@@ -1,0 +1,27 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+BLOCK_SIZE	/home/wangd7/gpu-comp/lab3/pmmatrixmul/matrixmul.h	40;"	d
+HM	/home/wangd7/gpu-comp/lab3/pmmatrixmul/matrixmul.h	/^int HM = 1024; \/\/ Matrix M height$/;"	v
+HN	/home/wangd7/gpu-comp/lab3/pmmatrixmul/matrixmul.h	/^int HN = WM;  \/\/ Matrix N height$/;"	v
+HP	/home/wangd7/gpu-comp/lab3/pmmatrixmul/matrixmul.h	/^int HP = HM;  \/\/ Matrix P height$/;"	v
+MAX_BLOCK_SIZE	/home/wangd7/gpu-comp/lab3/pmmatrixmul/matrixmul.h	41;"	d
+MAX_THREAD_SIZE	/home/wangd7/gpu-comp/lab3/pmmatrixmul/matrixmul.h	43;"	d
+Matrix	/home/wangd7/gpu-comp/lab3/pmmatrixmul/matrixmul.h	/^} Matrix;$/;"	t	typeref:struct:__anon1
+STREAMS_COUNT	/home/wangd7/gpu-comp/lab3/pmmatrixmul/matrixmul.h	44;"	d
+THREAD_SIZE	/home/wangd7/gpu-comp/lab3/pmmatrixmul/matrixmul.h	42;"	d
+WM	/home/wangd7/gpu-comp/lab3/pmmatrixmul/matrixmul.h	/^int WM = 1024; \/\/ Matrix M width$/;"	v
+WN	/home/wangd7/gpu-comp/lab3/pmmatrixmul/matrixmul.h	/^int WN = 1024; \/\/ Matrix N width$/;"	v
+WP	/home/wangd7/gpu-comp/lab3/pmmatrixmul/matrixmul.h	/^int WP = WN;  \/\/ Matrix P width $/;"	v
+_MATRIXMUL_H_	/home/wangd7/gpu-comp/lab3/pmmatrixmul/matrixmul.h	37;"	d
+__anon1::elements	/home/wangd7/gpu-comp/lab3/pmmatrixmul/matrixmul.h	/^    float* elements;$/;"	m	struct:__anon1	access:public
+__anon1::height	/home/wangd7/gpu-comp/lab3/pmmatrixmul/matrixmul.h	/^    unsigned int height;$/;"	m	struct:__anon1	access:public
+__anon1::pitch	/home/wangd7/gpu-comp/lab3/pmmatrixmul/matrixmul.h	/^    unsigned int pitch;$/;"	m	struct:__anon1	access:public
+__anon1::width	/home/wangd7/gpu-comp/lab3/pmmatrixmul/matrixmul.h	/^    unsigned int width;$/;"	m	struct:__anon1	access:public
+elements	/home/wangd7/gpu-comp/lab3/pmmatrixmul/matrixmul.h	/^    float* elements;$/;"	m	struct:__anon1	access:public
+height	/home/wangd7/gpu-comp/lab3/pmmatrixmul/matrixmul.h	/^    unsigned int height;$/;"	m	struct:__anon1	access:public
+pitch	/home/wangd7/gpu-comp/lab3/pmmatrixmul/matrixmul.h	/^    unsigned int pitch;$/;"	m	struct:__anon1	access:public
+width	/home/wangd7/gpu-comp/lab3/pmmatrixmul/matrixmul.h	/^    unsigned int width;$/;"	m	struct:__anon1	access:public

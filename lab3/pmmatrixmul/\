@@ -1,0 +1,193 @@
+
+/* Matrix multiplication: C = A * B.
+ * Host code.
+ */
+
+// includes, system
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+
+// includes, project
+#include <cutil.h>
+#include <cuda.h>
+#include <cutil_inline.h>
+
+// includes, kernels
+#include <pmmatrixmul_kernel.cu>
+
+////////////////////////////////////////////////////////////////////////////////
+// declarations, forward
+
+extern "C"
+void computeGold(float*, const float*, const float*, unsigned int, unsigned int, unsigned int);
+
+Matrix AllocateDeviceMatrixLock(const Matrix M);
+Matrix AllocateMatrixLock(int height, int width, int init);
+void FreeMatrixLock(Matrix *M);
+void MatrixReset(Matrix M);
+void WriteFile(Matrix M, char* filename);
+void MatrixMulOnDeviceA(const Matrix M, const Matrix N, Matrix P);
+void MatrixMulOnDeviceB(const Matrix M, const Matrix N, Matrix P);
+
+///////////////////////////////////////////////////////////////////////////////
+// Program main
+///////////////////////////////////////////////////////////////////////////////
+int main(int argc, char** argv) 
+{
+	//Matrices for the program
+	Matrix  M;
+	Matrix  N;
+	Matrix  P;
+
+	if (argc==4) 
+	{
+		HM = atoi(argv[1]); //height of Matrix M
+		WM = atoi(argv[2]); //Width of Matrix M
+		WN = atoi(argv[3]); //Width of Matrix N
+		HN = WM;
+		HP = HM;
+		WP = WN;
+	}
+
+	// Number of elements in the solution matrix
+	// Assuming square matrices, so the sizes of M, N and P are equal
+	unsigned int size_elements = WP * HP;
+	
+	srand(2012);
+	
+	// Check command line for input matrix files
+	// No inputs provided
+	// Allocate and initialize the matrices
+	M  = AllocateMatrixLock(HM, WM, 1);
+	N  = AllocateMatrixLock(HN, WN, 1);
+	P  = AllocateMatrixLock(HP, WP, 0);
+    	
+	// compute the matrix multiplication on the CPU for comparison
+    	Matrix reference = AllocateMatrixLock(HP, WP, 0);
+	clock_t st=clock();
+    	computeGold(reference.elements, M.elements, N.elements, HM, WM, WN);
+        char* filename2 = "cpufile";
+	WriteFile(reference, filename2);
+
+	st = clock()-st;
+	printf("CPU executation is %.4f\n",(double)st/CLOCKS_PER_SEC);
+    	
+	MatrixMulOnDeviceA(M, N, P);
+ 
+	char* filenamem="mfile";
+	WriteFile(M,filenamem);
+	char* filenamen="nfile";
+	WriteFile(N,filenamen);
+	char* filenamep= "gpufile";
+	WriteFile(P, filenamep);
+
+	// check if the device result is equivalent to the expected solution
+    	CUTBoolean res = cutComparefe(reference.elements, P.elements, size_elements, 0.0001f);
+    	printf("Part A Test %s\n", (1 == res) ? "PASSED" : "FAILED");
+
+	MatrixReset(P);
+	MatrixMulOnDeviceB(M, N, P);
+    	// check if the device result is equivalent to the expected solution
+    	res = cutComparefe(reference.elements, P.elements, size_elements, 0.0001f);
+    	printf("Part B Test %s\n", (1 == res) ? "PASSED" : "FAILED");
+
+	// Free host matrices
+	FreeMatrixLock(&M);
+	FreeMatrixLock(&N);
+	FreeMatrixLock(&P);
+	return 0;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+//! Run a simple test for CUDA
+////////////////////////////////////////////////////////////////////////////////
+void MatrixMulOnDeviceA(const Matrix M, const Matrix N, Matrix P)
+{
+	//Interface host call to the device kernel code and invoke the kernel
+	cudaEvent_t start, stop;
+	float elapsedTime;
+
+	cudaHostAlloc((void**)&M.elements, M.height*M.width*sizeof(float), cudaHostAllocMapped);
+	cudaHostAlloc((void**)&N.elements, N.height*N.width*sizeof(float), cudaHostAllocMapped);
+	cudaHostAlloc((void**)&P.elements, P.height*P.width*sizeof(float), cudaHostAllocMapped);
+
+	Matrix Md=AllocateDeviceMatrixLock(M);
+	Matrix Nd=AllocateDeviceMatrixLock(N);
+	Matrix Pd=AllocateDeviceMatrixLock(P);
+	
+//	Md.height = Md.width = 1024;
+//	Nd.height = Nd.width = 1024;
+//	Pd.height = Pd.width = 1024;
+//	Md.elements = Nd.elements = Pd.elements = NULL;
+//	cudaHostGetDevicePointer((void**)&Md.elements, M.elements, 0);
+//	cudaHostGetDevicePointer((void**)&Nd.elements, N.elements, 0);
+//	cudaHostGetDevicePointer((void**)&Pd.elements, P.elements, 0);
+
+	cudaEventCreate(&start);
+	cudaEventCreate(&stop);
+	cudaEventRecord(start, 0);
+	
+	int blky = (P.height%BLOCKSIZE==0)?P.height/BLOCKSIZE:P.height/BLOCKSIZE+1;
+	int blkx = (P.width%BLOCKSIZE==0)?P.width/BLOCKSIZE:P.width/BLOCKSIZE+1;
+	dim3 block2D(blkx, blky);
+	dim3 thread2D(BLOCKSIZE, BLOCKSIZE);
+	MatrixMulKernelA<<<block2D, thread2D>>>(Md, Nd, Pd);
+	cudaThreadSynchronize();
+
+	cudaEventRecord(stop, 0);
+	cudaEventSynchronize(stop);
+	cudaEventElapsedTime(&elapsedTime, start, stop);
+	printf("GPU execution time is:%f\n",elapsedTime);
+}
+
+void MatrixMulOnDeviceB(const Matrix M, const Matrix N, Matrix P)
+{
+	//Interface host call to the device kernel code and invoke the kernel
+}
+
+// Allocate a device matrix of same size as M.
+Matrix AllocateDeviceMatrixLock(Matrix M)
+{
+	Matrix Mdevice = M;
+	cudaHostGetDevicePointer((void **)&(Mdevice.elements), M.elements,0);
+	return Mdevice;
+}
+
+//Allocate a matrix of dimensions height*width
+//If init == 0, initialize to all zeroes.  
+//If init == 1, perform random initialization.
+Matrix AllocateMatrixLock(int height, int width, int init)
+{
+	Matrix M;
+	M.width = M.pitch = width;
+	M.height = height;
+	int size = M.width * M.height;
+	M.elements = NULL;
+	M.elements = (float *)malloc(size*sizeof(float));
+	cudaHostRegister(M.elements, size*sizeof(float),CU_MEMHOSTALLOC_DEVICEMAP);
+	for(unsigned int i = 0; i < M.height * M.width; i++)
+	{
+		M.elements[i] = (init == 0) ? (0.0f) : (rand() / (float)RAND_MAX);
+	}
+	return M;
+}	
+
+void FreeMatrixLock(Matrix *M)
+{
+	cudaHostUnregister(M->elements);
+	free(M->elements);
+	M->elements = NULL;
+}
+
+void MatrixReset(Matrix M)
+{
+	for (int i=0;i<M.width*M.height;i++)
+		M.elements[i] = 0;
+}
+
+void WriteFile(Matrix M, char* filename)
+{
+	cutWriteFilef(filename, M.elements, M.height*M.width, 0.0001f);
+}

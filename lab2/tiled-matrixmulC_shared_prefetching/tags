@@ -1,0 +1,30 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+BIN	Makefile	/^BIN               := matrixmul $/;"	m
+COMMONFLAGS	Makefile	/^COMMONFLAGS = -DCUDA_SDK=$(CUDA_SDK)$/;"	m
+CPP_OBJS	Makefile	/^CPP_OBJS          := $(patsubst %.cpp, %.o, $(CPP_SOURCES))$/;"	m
+CPP_SOURCES	Makefile	/^CPP_SOURCES       := matrixmul_gold.cpp $/;"	m
+CUDA_INSTALL_PATH	Makefile	/^CUDA_INSTALL_PATH ?= \/usr\/local\/cuda$/;"	m
+CUDA_SDK	Makefile	/^CUDA_SDK?=3$/;"	m
+CUDA_SDK_PATH	Makefile	/^CUDA_SDK_PATH ?= \/home\/wangd7\/NVIDIA_GPU_Computing_SDK$/;"	m
+CU_OBJS	Makefile	/^CU_OBJS           := $(patsubst %.cu, %.cu_o, $(CU_SOURCES))$/;"	m
+CU_SOURCES	Makefile	/^CU_SOURCES        := matrixmul.cu$/;"	m
+CXXFLAGS	Makefile	/^CXXFLAGS          := -O3$/;"	m
+HEADERS	Makefile	/^HEADERS           := $(wildcard *.h)$/;"	m
+INCD	Makefile	/^INCD = -I"$(CUDA_SDK_PATH)\/C\/common\/inc" -I"$(CUDA_INSTALL_PATH)\/include" -I".\/"$/;"	m
+LIBS	Makefile	/^LIBS = -L"$(CUDA_INSTALL_PATH)\/lib64" -lcuda -lcudart -L"$(CUDA_SDK_PATH)\/C\/common\/lib" $(CUDA_SDK_PATH)\/C\/lib\/libcutil$(LIBSUFFIX)_x86_64.a -lstdc++ -lpthread$/;"	m
+MAX_COUNT	matrixmul.h	39;"	d
+Matrix	matrixmul.h	/^} Matrix;$/;"	t	typeref:struct:__anon1
+NVCC	Makefile	/^NVCC ?= $(CUDA_INSTALL_PATH)\/bin\/nvcc$/;"	m
+NVCCFLAGS	Makefile	/^NVCCFLAGS := --ptxas-options=-v -O3 $/;"	m
+TILED_WIDTH	matrixmul.h	40;"	d
+_MATRIXMUL_H_	matrixmul.h	37;"	d
+computeGold	matrixmul_gold.cpp	/^computeGold(float* C, const float* A, const float* B, unsigned int hA, unsigned int wA, unsigned int wB)$/;"	f
+elements	matrixmul.h	/^    float* elements;$/;"	m	struct:__anon1
+height	matrixmul.h	/^    unsigned int height;$/;"	m	struct:__anon1
+pitch	matrixmul.h	/^    unsigned int pitch;$/;"	m	struct:__anon1
+width	matrixmul.h	/^    unsigned int width;$/;"	m	struct:__anon1
